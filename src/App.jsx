@@ -29,11 +29,7 @@ useEffect(() => {
   }
 
     fetchWeather();
-  }, []);
-
-    console.log('todos', weather);
-    console.log('cortados:', forecast)
-    
+  }, []);  
 
     return (
         <div className="app-container">
