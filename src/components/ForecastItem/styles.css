@@ -11,6 +11,7 @@
 .forecast-day {
     font-size: 13px;
     line-height: 120%;
+    text-align: center;
 }
 
 .forecast-temp {

@@ -3,43 +3,52 @@ import WeatherCard from './components/WeatherCard';
 import './App.css';
 import { useEffect, useState } from 'react';
 import ForecastList from './components/ForecastList';
+import Loading from './components/Loading';
 
 const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
 function App() {
     const [weather, setWeather] = useState(null);
- 
-const [forecast, setForecast] = useState([]);
-  
-useEffect(() => {
-    async function fetchWeather() {
-      try {
-        const response = await fetch(
-          `https://api.hgbrasil.com/weather?format=json-cors&key=${API_KEY}&city_name=São Paulo, SP`
-        );
-        const data = await response.json();
 
-        if (data.results) {
-          setWeather(data.results);
-          setForecast(data.results.forecast.slice(1, 4)); //Aqui usamos o slice para pegar os próximos 3 items
+    const [forecast, setForecast] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        async function fetchWeather() {
+            try {
+                setLoading(true);
+                const response = await fetch(
+                    `https://api.hgbrasil.com/weather?format=json-cors&key=${API_KEY}&city_name=Joinville, SC`,
+                );
+                const data = await response.json();
+
+                if (data.results) {
+                    setWeather(data.results);
+                    setForecast(data.results.forecast.slice(1, 4));
+                }
+            } catch (error) {
+                console.error('Erro ao buscar dados da API', error);
+            } finally {
+                setLoading(false);
+            }
         }
-      } catch (error) {
-        console.error("Erro ao buscar dados da API", error);
-      }    
-  }
 
-    fetchWeather();
-  }, []);  
+        fetchWeather();
+    }, []);
 
     return (
         <div className="app-container">
             <SearchBar />
-            {weather && (
+            {loading ? (
+                <Loading />
+            ) : weather ? (
                 <>
                     <h1>{weather.city}</h1>
                     <WeatherCard weather={weather} />
-                    <ForecastList forecasts={forecast}/>
+                    <ForecastList forecasts={forecast} />
                 </>
+            ) : (
+                <p>Digite uma cidade para buscar o clima</p>
             )}
         </div>
     );

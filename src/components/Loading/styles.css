@@ -1,0 +1,31 @@
+.loading-card{
+  width: 328px;
+  height: 296px;
+  background-color: #4463d5;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  gap: 10px;
+}
+
+.loading-card::after{
+  content: '';
+  height: 50px;
+  width: 50px;
+  border-radius: 50%; 
+  border: 4px solid rgba(255, 255, 255, 0.5);
+  border-top-color: #fff;
+  
+  
+  animation: spin 1s linear infinite;
+
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
