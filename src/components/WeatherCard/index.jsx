@@ -6,6 +6,7 @@ const WeatherCard = ({ weather }) => {
             <section className="weather-card">
                 <p>Hoje ({weather.forecast[0].date})</p>
                 <img
+                    className='weather-condition'
                     src={`./icons-weather/${weather.condition_slug}.svg`}
                     alt={weather.description}
                 />
