@@ -44,7 +44,13 @@ function App() {
                 <Loading />
             ) : weather ? (
                 <>
-                    <h1>{weather.city}</h1>
+                    <h1>
+                        {weather.city}
+
+                        <span>
+                            Nascer do sol: {weather.sunrise} | Pôr do sol: {weather.sunset}
+                        </span>
+                    </h1>
                     <WeatherCard weather={weather} />
                     <ForecastList forecasts={forecast} />
                 </>
