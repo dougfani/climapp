@@ -12,13 +12,14 @@ function App() {
 
     const [forecast, setForecast] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [city, setCity] = useState('');
 
     useEffect(() => {
         async function fetchWeather() {
             try {
                 setLoading(true);
                 const response = await fetch(
-                    `https://api.hgbrasil.com/weather?format=json-cors&key=${API_KEY}&city_name=Joinville, SC`,
+                    `https://api.hgbrasil.com/weather?format=json-cors&key=${API_KEY}&city_name=${city}`,
                 );
                 const data = await response.json();
 
@@ -34,11 +35,11 @@ function App() {
         }
 
         fetchWeather();
-    }, []);
+    }, [city]);
 
     return (
         <div className="app-container">
-            <SearchBar />
+            <SearchBar onSearch={setCity} />
             {loading ? (
                 <Loading />
             ) : weather ? (
